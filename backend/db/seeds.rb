@@ -13,8 +13,12 @@
 #     {name: "C", color: "Yellow", size: "Very Big"}
 # ])
 
-Item.create([
-    {name: "A", size: "Normal", description: "Normal and fuzzy"},
-    {name: "B", size: "Small", description: "Small and sharp"},
-    {name: "C", size: "Big", description: "Large and round"},
-])
+# Item.create([
+#     {name: "A", size: "Normal", description: "Normal and fuzzy"},
+#     {name: "B", size: "Small", description: "Small and sharp"},
+#     {name: "C", size: "Big", description: "Large and round"},
+# ])
+
+Box.find_by_id(1).update(item_ids: [1, 2])
+Box.find_by_id(2).update(item_ids: [2])
+Box.find_by_id(3).update(item_ids: [1, 2, 3])

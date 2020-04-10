@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_10_154459) do
+ActiveRecord::Schema.define(version: 2020_04_10_155032) do
+
+  create_table "box_items", force: :cascade do |t|
+    t.integer "box_id", null: false
+    t.integer "item_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["box_id"], name: "index_box_items_on_box_id"
+    t.index ["item_id"], name: "index_box_items_on_item_id"
+  end
 
   create_table "boxes", force: :cascade do |t|
     t.string "name"
@@ -28,4 +37,6 @@ ActiveRecord::Schema.define(version: 2020_04_10_154459) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "box_items", "boxes"
+  add_foreign_key "box_items", "items"
 end

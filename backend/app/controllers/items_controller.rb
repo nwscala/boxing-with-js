@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   def index
     @items = Item.all
 
-    render json: @items
+    render json: @items, include: :boxes
   end
 
   # GET /items/1
