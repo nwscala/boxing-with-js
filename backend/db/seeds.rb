@@ -5,8 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Box.create([
-    {name: "A", color: "Red", size: "Normal"},
-    {name: "B", color: "Blue", size: "Very Small"},
-    {name: "C", color: "Yellow", size: "Very Big"}
+
+
+# Box.create([
+#     {name: "A", color: "Red", size: "Normal"},
+#     {name: "B", color: "Blue", size: "Very Small"},
+#     {name: "C", color: "Yellow", size: "Very Big"}
+# ])
+
+Item.create([
+    {name: "A", size: "Normal", description: "Normal and fuzzy"},
+    {name: "B", size: "Small", description: "Small and sharp"},
+    {name: "C", size: "Big", description: "Large and round"},
 ])
