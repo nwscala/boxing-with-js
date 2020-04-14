@@ -38,6 +38,15 @@ class BoxesController < ApplicationController
     @box.destroy
   end
 
+  def remove_box_item
+    @removedBoxItem = BoxItem.find_by(box_id: params[:box_id], item_id: params[:item_id])
+    if @removedBoxItem.destroy
+      render json: {success: "BoxItem relationship successfully deleted!"}
+    else
+      render json: {error: "Something went wrong!"}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_box

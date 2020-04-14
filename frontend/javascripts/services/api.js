@@ -23,4 +23,11 @@ class API {
         })
             .then(resp => resp.json())
     }
+
+    static delete(url) {
+        return fetch(this.baseURL + url, {
+            method: "DELETE"
+        })
+            .then(resp => resp.json())
+    }
 }

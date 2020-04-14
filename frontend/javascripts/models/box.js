@@ -59,7 +59,7 @@ class Box {
                 <h3>Box Size: ${this.size}</h3>
                 <h3>Box Color: ${this.color}</h3>
                 <ul id="box-${this.id}-items-list">
-                    ${this.boxItemTemplate()}
+                    ${this.boxItemTemplate().join(" ")}
                 </ul>
             </div> 
             `
@@ -73,16 +73,16 @@ class Box {
                         <h5>Item Name: ${item.name}</h5>
                         <h5>Item Size: ${item.size}</h5>
                         <h5>Item Description: ${item.description}</h5>
-                        <h6 id="box-${this.id}-item-${item.id}-delete">Click here to remove this item from this box.</h6>
+                        <button class="delete-text" id="box-${this.id}-item-${item.id}-delete" data-boxID="${this.id}" data-itemID="${item.id}">Click here to remove this item from this box.</button>
                     </li>
                     `
         }, this)
     }
 
     static renderBoxes() {
-        let div = document.getElementById('box-div')
-        div.innerHTML = ""
-        Box.all.forEach(box => div.innerHTML += box.template())
+        let boxDiv = document.getElementById('box-div')
+        boxDiv.innerHTML = ""
+        Box.all.forEach(box => boxDiv.innerHTML += box.template())
     }
 
     static createItemFromForm(event) {
@@ -112,12 +112,27 @@ class Box {
         API.post("/items", strongParams)
             .then(function(itemData) {
                 itemData.boxes.forEach(function(box) {
-                    let rightBox = Box.all.find(function(boxObj) {
+                    const rightBox = Box.all.find(function(boxObj) {
                         return boxObj.id === box.id
                     })
                     rightBox.items.push(itemData)
                 })
                 Box.renderBoxes();
+            })
+    }
+
+    static deleteItemFromBox(event) {
+        const boxID = event.target.dataset.boxid
+        const itemID = event.target.dataset.itemid
+    
+        API.delete(`/boxes/${boxID}/items/${itemID}`)
+            .then(messageObj => {
+                if(messageObj.success) {
+                    alert(messageObj.success)
+                    Box.loadBoxes()
+                } else if(messageObj.error) {
+                    alert(messageObj.error)
+                }
             })
     }
 }
