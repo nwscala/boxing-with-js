@@ -8,11 +8,13 @@ const getItemForm = () => document.getElementById("item-form")
 
 const getBoxDiv = () => document.getElementById("box-div")
 
+
+
 function boxDivClick(event) {
     event.preventDefault()
     if(event.target.className === "delete-text") {
         Box.deleteItemFromBox(event)
-    } else {
-        console.log(event.target)
+    } else if (event.target.className === "reveal-items") {
+        Box.revealItemList(event)
     }
 }

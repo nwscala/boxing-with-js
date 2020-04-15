@@ -1,6 +1,7 @@
 class Box {
     static all = []
     static renderedCheckboxes = false
+    static renderedItemList = false
     
     constructor(data) {
         this.id = data.id;
@@ -53,13 +54,16 @@ class Box {
     }
 
     template() {
-        return ` 
-            <div class="box">
+        return `
+            <h1>-----------</h1> 
+            <div class="box" style="background-color:${this.color}">
                 <h3>Box Name: ${this.name}</h3>
                 <h3>Box Size: ${this.size}</h3>
                 <h3>Box Color: ${this.color}</h3>
+                <h3>Number of Items: ${this.items.length}</h3>
+                <button class="reveal-items" data-boxID="${this.id}">Click here to get more details on the items in this box</button>
                 <ul id="box-${this.id}-items-list">
-                    ${this.boxItemTemplate().join(" ")}
+                    
                 </ul>
             </div> 
             `
@@ -73,7 +77,7 @@ class Box {
                         <h5>Item Name: ${item.name}</h5>
                         <h5>Item Size: ${item.size}</h5>
                         <h5>Item Description: ${item.description}</h5>
-                        <button class="delete-text" id="box-${this.id}-item-${item.id}-delete" data-boxID="${this.id}" data-itemID="${item.id}">Click here to remove this item from this box.</button>
+                        <button class="delete-text" data-boxID="${this.id}" data-itemID="${item.id}">Click here to remove this item from this box</button>
                     </li>
                     `
         }, this)
@@ -134,5 +138,22 @@ class Box {
                     alert(messageObj.error)
                 }
             })
+    }
+
+    static revealItemList(event) {
+        const boxID = event.target.dataset.boxid
+        const rightBox = Box.all.find(function(boxObj) {
+            return boxObj.id === parseInt(boxID)
+        })
+        const rightUL = document.getElementById(`box-${boxID}-items-list`)
+        if (!Box.renderedItemList) {
+            rightUL.innerHTML = rightBox.boxItemTemplate().join(" ")
+            Box.renderedItemList = true
+            event.target.textContent = "Click here for fewer details on the items in this box"
+        } else {
+            rightUL.innerHTML = ""
+            Box.renderedItemList = false
+            event.target.textContent = "Click here to get more details on the items in this box"
+        }
     }
 }
