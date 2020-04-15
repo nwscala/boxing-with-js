@@ -47,7 +47,6 @@ class Box {
                 if (!Box.renderedCheckboxes) {
                     Box.makeBoxCheckboxes()
                     Box.renderedCheckboxes = true
-
                 }
             })
             .catch(errors => console.log(errors))
