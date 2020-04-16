@@ -120,6 +120,7 @@ class Box {
                     })
                     rightBox.items.push(itemData)
                 })
+                Box.clearItemForm();
                 Box.renderBoxes();
             })
     }
@@ -154,5 +155,14 @@ class Box {
             Box.renderedItemList = false
             event.target.textContent = "Click here to get more details on the items in this box"
         }
+    }
+
+    static clearItemForm() {
+        document.getElementById("name").value = ""
+        document.getElementById("size").value = ""
+        document.getElementById("description").value = ""
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]')
+
+        checkboxes.forEach(checkbox => checkbox.checked = false)
     }
 }
