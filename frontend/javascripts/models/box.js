@@ -43,7 +43,6 @@ class Box {
         API.get('/boxes')
             .then(function(boxArray) {
                 Box.createBoxes(boxArray)
-                Box.renderBoxes()
                 if (!Box.renderedCheckboxes) {
                     Box.makeBoxCheckboxes()
                     Box.renderedCheckboxes = true
@@ -164,5 +163,9 @@ class Box {
         const checkboxes = document.querySelectorAll('input[type="checkbox"]')
 
         checkboxes.forEach(checkbox => checkbox.checked = false)
+    }
+
+    static showBoxes() {
+        Box.renderBoxes()
     }
 }
